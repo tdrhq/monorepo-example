@@ -25,10 +25,13 @@ is_target_affected() {
 }
 
 maybe_run_target() {
+    channel = "monorepo-example/$1"
     if ( is_target_affected $1 ) ; then
         cd $1 && ./gen.sh
-        ~/screenshotbot/recorder --directory screenshots --channel "monorepo-example/$1"
+        ~/screenshotbot/recorder --directory screenshots --channel $channel
         cd ..
+    else
+        ~/screenshotbot/recorder --mark-unchanged-from `merge_base` --channel $channel
     fi
 }
 
@@ -36,6 +39,9 @@ for target in target1 target2 target3 ; do
     maybe_run_target $target
 done
 
+# Finalize the commit! This tells Screenshotbot that there are no more
+# runs to be expected on this commit. This is required if you're using
+# a monorepo with target selection.
 ~/screenshotbot/recorder --finalize
 
 echo "run-all-tests done"
