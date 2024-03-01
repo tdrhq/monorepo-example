@@ -25,7 +25,7 @@ is_target_affected() {
 }
 
 maybe_run_target() {
-    channel = "monorepo-example/$1"
+    channel="monorepo-example/$1"
     if ( is_target_affected $1 ) ; then
         cd $1 && ./gen.sh
         ~/screenshotbot/recorder --directory screenshots --channel $channel
