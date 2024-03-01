@@ -12,7 +12,6 @@ jobs:
              git fetch origin main
              sudo apt-get update
              sudo apt-get install -y imagemagick
-             ./gen.sh
       - run:
           name: Fetch screenshotbot
           command: |
