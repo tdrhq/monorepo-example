@@ -19,21 +19,6 @@ jobs:
             curl https://screenshotbot.io/recorder.sh | sh
           when: always
       - run:
-          name: Record to screenshotbot
+          name: Run affected tests
           command: |
-            ~/screenshotbot/recorder \
-              --directory screenshots \
-              --channel fast-example \
-               --batch test-batch \
-              --production \
-              --main-branch master \
-              --api-key ${SCREENSHOTBOT_API_KEY} \
-              --repo-url ${CIRCLE_REPOSITORY_URL} \
-              --api-secret ${SCREENSHOTBOT_API_SECRET}
-      - run:
-          name: Notify screenshotbot of failure
-          command: |
-            ~/screenshotbot/recorder \
-               --channel fast-example \
-               --mark-failed
-          when: on_fail
+            ./run-all-tests.sh
