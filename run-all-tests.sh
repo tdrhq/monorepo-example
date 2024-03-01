@@ -17,7 +17,11 @@ is_target_affected() {
         return 0 # always build the main branch.
     fi
 
-    return ! ( git diff --exit-code `merge_base` $1 )
+    if ( git diff --exit-code `merge_base` $1 ) ; then
+        return 1
+    else
+        return 0
+    fi
 }
 
 maybe_run_target() {
