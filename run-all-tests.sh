@@ -36,4 +36,6 @@ for target in target1 target2 target3 ; do
     maybe_run_target $target
 done
 
+~/screenshotbot/recorder --finalize
+
 echo "run-all-tests done"
