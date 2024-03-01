@@ -32,7 +32,7 @@ maybe_run_target() {
         ~/screenshotbot/recorder --directory screenshots --channel $channel --batch monorepo
         cd ..
     else
-        ~/screenshotbot/recorder --mark-unchanged-from `merge_base` --channel $channel
+        ~/screenshotbot/recorder ci mark-unchanged --other-commit `merge_base` --channel $channel
     fi
 }
 
@@ -43,6 +43,6 @@ done
 # Finalize the commit! This tells Screenshotbot that there are no more
 # runs to be expected on this commit. This is required if you're using
 # a monorepo with target selection.
-~/screenshotbot/recorder --finalize
+~/screenshotbot/recorder ci finalize
 
 echo "run-all-tests done"
