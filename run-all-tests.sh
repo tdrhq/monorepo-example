@@ -5,6 +5,7 @@ set -e
 maybe_run_target() {
     cd $1 && ./gen.sh
     ~/screenshotbot/recorder --directory screenshots --channel "monorepo-example/$1"
+    cd ..
 }
 
 for target in "target1 target2 target3" ; do
