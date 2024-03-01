@@ -29,7 +29,7 @@ maybe_run_target() {
     channel="monorepo-example/$1"
     if ( is_target_affected $1 ) ; then
         cd $1 && ./gen.sh
-        ~/screenshotbot/recorder --directory screenshots --channel $channel
+        ~/screenshotbot/recorder --directory screenshots --channel $channel --batch monorepo
         cd ..
     else
         ~/screenshotbot/recorder --mark-unchanged-from `merge_base` --channel $channel
