@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - run: |
-             git fetch origin master
+             git fetch origin main
              sudo apt-get update
              sudo apt-get install -y imagemagick
              ./gen.sh
