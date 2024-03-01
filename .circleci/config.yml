@@ -1,0 +1,39 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cimg/base:2020.01
+        auth:
+          username: tdrhq
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run: |
+             git fetch origin master
+             sudo apt-get update
+             sudo apt-get install -y imagemagick
+             ./gen.sh
+      - run:
+          name: Fetch screenshotbot
+          command: |
+            curl https://screenshotbot.io/recorder.sh | sh
+          when: always
+      - run:
+          name: Record to screenshotbot
+          command: |
+            ~/screenshotbot/recorder \
+              --directory screenshots \
+              --channel fast-example \
+               --batch test-batch \
+              --production \
+              --main-branch master \
+              --api-key ${SCREENSHOTBOT_API_KEY} \
+              --repo-url ${CIRCLE_REPOSITORY_URL} \
+              --api-secret ${SCREENSHOTBOT_API_SECRET}
+      - run:
+          name: Notify screenshotbot of failure
+          command: |
+            ~/screenshotbot/recorder \
+               --channel fast-example \
+               --mark-failed
+          when: on_fail
