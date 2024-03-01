@@ -1,5 +1,6 @@
 
 set -x
+set -e
 
 merge_base() {
     git merge-base main HEAD
