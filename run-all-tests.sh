@@ -32,7 +32,7 @@ maybe_run_target() {
         ~/screenshotbot/recorder --directory screenshots --channel $channel --batch monorepo
         cd ..
     else
-        ~/screenshotbot/recorder ci mark-unchanged --other-commit `merge_base` --channel $channel
+        ~/screenshotbot/recorder ci mark-unchanged --other-commit `merge_base` --channel $channel --batch monorepo
     fi
 }
 
